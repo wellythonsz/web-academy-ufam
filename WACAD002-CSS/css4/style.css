@@ -1,0 +1,50 @@
+/* Configurações gerais */
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin: 0;
+}
+
+.box {
+    border-radius: 8px;
+    min-height: 150px; /* Altura padrão das caixas */
+}
+
+/* Conectando as cores aos nomes das áreas do Grid */
+.red    { background-color: #8b0000; grid-area: red; }
+.blue   { background-color: #00008b; grid-area: blue; }
+.green  { background-color: #006400; grid-area: green; }
+.purple { background-color: #800080; grid-area: purple; }
+.orange { background-color: #ff8c00; grid-area: orange; }
+
+.grid-container {
+    display: grid;
+    gap: 15px;
+    
+    /* 3 colunas de tamanhos iguais */
+    grid-template-columns: 1fr 1fr 1fr; 
+    
+    /* Desenho do Grid para tela grande */
+    grid-template-areas: 
+        "red red red"
+        "green purple purple"
+        "green blue orange";
+}
+
+/* =========================================
+   LAYOUT RESPONSIVO (TELA PEQUENA / MOBILE)
+   ========================================= */
+/* Quando a largura da tela for no máximo 768px, essa regra é ativada */
+@media (max-width: 768px) {
+    .grid-container {
+        /* Muda para 3 colunas, mas organiza diferente */
+        grid-template-columns: 1fr 1fr 1fr;
+        
+        /* Desenho do Grid para tela pequena (caixas empilhadas) */
+        grid-template-areas: 
+            "red red blue"
+            "green purple purple"
+            "orange orange orange";
+    }
+}
