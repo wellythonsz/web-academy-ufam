@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #ffffff;
+}
+
+/* Header */
+.main-header {
+    background-color: #333333;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    flex-direction: column; /* No celular, o título e links ficam um em cima do outro */
+    align-items: center;
+    gap: 15px;
+}
+
+.main-header h1 { margin: 0; font-size: 24px; }
+.main-header nav { display: flex; gap: 20px; }
+.main-header nav a { color: white; text-decoration: none; }
+
+.wrapper {
+    padding: 20px;
+    display: grid;
+    gap: 20px; 
+}
+
+main h2 { margin-top: 0; color: #333333; }
+main p { line-height: 1.5; color: #333333; }
+
+/* Grid dos Cartões */
+.cards {
+    display: grid;
+    gap: 20px; 
+    margin-top: 30px;
+}
+
+.card {
+    border: 3px solid #333333;
+}
+
+.card h3 {
+    background-color: #333333;
+    color: white;
+    margin: 0;
+    padding: 15px;
+    font-size: 20px;
+}
+
+.card p {
+    padding: 15px;
+    margin: 0;
+}
+
+.sidebar {
+    background-color: #333333;
+    color: white;
+    padding: 20px;
+}
+
+
+@media (min-width: 800px) {
+    
+    .main-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .wrapper {
+        grid-template-columns: 3fr 1fr;
+    }
+
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
