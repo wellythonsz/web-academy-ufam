@@ -1,0 +1,31 @@
+/* Centraliza a caixa no meio da tela (opcional, mas igual à imagem) */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+    margin: 0;
+    background-color: #ffffff;
+}
+
+/* Estiliza a caixa cinza com as bordas arredondadas assimétricas */
+.caixa-estilizada {
+    background-color: #c4c4c4; /* Cor de fundo cinza */
+    border: 22px solid black; /* Borda preta bem grossa */
+    
+    /* O segredo do formato: Top-Left, Top-Right, Bottom-Right, Bottom-Left */
+    border-radius: 120px 25px 120px 25px; 
+    
+    padding: 40px 60px; /* Espaço interno para o texto não grudar nas bordas */
+    max-width: 650px; /* Largura máxima da caixa */
+    text-align: center; /* Centraliza o texto */
+}
+
+/* Estiliza o texto dentro da caixa */
+.caixa-estilizada p {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 32px;
+    color: #000000;
+    margin: 0;
+    line-height: 1.2;
+}
