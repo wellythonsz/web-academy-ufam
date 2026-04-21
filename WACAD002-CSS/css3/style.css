@@ -1,0 +1,28 @@
+/* Definimos uma altura padrão e a flutuação para todas as divs */
+div {
+    height: 100px;
+    float: left;
+}
+
+/* O azul tem o dobro da altura para bloquear a lateral esquerda */
+div.blue { 
+    width: 100px; 
+    height: 200px; 
+    background-color: blue; 
+}
+
+div.yellow { 
+    width: 100px; 
+    background-color: yellow; 
+}
+
+div.red { 
+    width: 100px; 
+    background-color: red; 
+}
+
+/* O verde é mais largo para ocupar o espaço exato sob o amarelo e o vermelho */
+div.green { 
+    width: 200px; 
+    background-color: green; 
+}
