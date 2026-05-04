@@ -1,0 +1,63 @@
+h1 {
+  font-family: sans-serif;
+  text-align: center;
+  color: #333;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 640px;
+  background-color: #f4f4f9;
+}
+
+/* Área da imagem principal */
+.full-img {
+  position: relative;
+  display: block;
+  width: 640px;
+  height: 480px;
+  background-color: #fff;
+}
+
+.displayed-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A camada escura por cima da imagem */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0);
+}
+
+/* Botão de escurecer/clarear */
+button {
+  border: 0;
+  background: rgba(150,150,150,0.6);
+  text-shadow: 1px 1px 1px white;
+  border: 1px solid #999;
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  left: 2px;
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+/* Barra de miniaturas */
+.thumb-bar {
+  width: 640px;
+  display: flex;
+}
+
+.thumb-bar img {
+  width: 20%;
+  height: 128px;
+  cursor: pointer;
+  object-fit: cover;
+}
