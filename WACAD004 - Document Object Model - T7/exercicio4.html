@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Tarefas</title>
+    <style>
+        /* Estilo básico para replicar a interface da atividade */
+        body { font-family: sans-serif; padding: 20px; }
+        .container { border: 1px solid #000; padding: 20px; width: 450px; }
+        h2 { margin-top: 0; }
+        input[type="text"] { padding: 5px; width: 200px; }
+        button { padding: 5px 10px; cursor: pointer; }
+        ul { margin-top: 20px; padding-left: 20px; }
+        li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Minhas Tarefas</h2>
+        
+        <input type="text" id="input-tarefa" placeholder="Digite uma tarefa...">
+        <button id="btn-adicionar">Adicionar Tarefa</button>
+
+        <ul id="lista-tarefas">
+            <li>Revisar código da aula passada</li>
+        </ul>
+    </div>
+
+    <script>
+        // 1. Selecione o input de texto, o botão e a lista <ul>
+        const inputTarefa = document.getElementById('input-tarefa');
+        const btnAdicionar = document.getElementById('btn-adicionar');
+        const listaTarefas = document.getElementById('lista-tarefas');
+
+        // 2. Adicione um evento de click ao botão
+        btnAdicionar.addEventListener('click', function() {
+            
+            // 3. Dentro da função, capture o .value (texto) que está no input
+            // O trim() é usado para remover espaços em branco invisíveis no começo e no fim
+            const textoDaTarefa = inputTarefa.value.trim();
+
+            // 6. Não permita a adição de tarefas com texto vazio
+            if (textoDaTarefa === "") {
+                alert("Por favor, digite uma tarefa antes de adicionar.");
+                return; // O 'return' faz a função parar aqui e não executar o código abaixo
+            }
+
+            // 4. Crie um novo elemento <li>, coloque o texto dentro dele e adicione na lista da tela
+            const novoLi = document.createElement('li');
+            novoLi.innerText = textoDaTarefa;
+            listaTarefas.appendChild(novoLi);
+
+            // 5. Após adicionar a tarefa, limpe o input atribuindo uma string vazia
+            inputTarefa.value = "";
+            
+            // Bônus de usabilidade: devolve o cursor do mouse para o input
+            inputTarefa.focus();
+        });
+    </script>
+</body>
+</html>
