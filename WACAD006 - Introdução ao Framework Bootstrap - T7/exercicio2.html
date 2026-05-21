@@ -11,7 +11,10 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#">CineList Admin</a>
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto flex-row gap-3">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">Menu</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Sair</a>
                 </li>
@@ -20,7 +23,6 @@
     </nav>
 
     <div class="container mt-5">
-        
         <div class="mb-4">
             <h2 class="fw-normal">Gerenciar Catálogo</h2>
         </div>
@@ -113,6 +115,40 @@
         </div>
     </div>
 
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="menuLateral" aria-labelledby="menuLateralLabel">
+        <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title fw-bold" id="menuLateralLabel">CineList</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <div class="list-group list-group-flush" id="menuLateralItens">
+                <a href="#" class="list-group-item list-group-item-action text-bg-dark border-secondary">Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action active border-secondary" aria-current="true">Catálogo de Filmes</a>
+                <a href="#" class="list-group-item list-group-item-action text-bg-dark border-secondary">Gerenciar Usuários</a>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const itensMenu = document.querySelectorAll('#menuLateralItens .list-group-item');
+
+        itensMenu.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault(); 
+
+                itensMenu.forEach(i => {
+                    i.classList.remove('active');
+                    i.removeAttribute('aria-current');
+                    i.classList.add('text-bg-dark'); // Garante que volta a ter o fundo escuro padrão
+                });
+
+                this.classList.add('active');
+                this.setAttribute('aria-current', 'true');
+                this.classList.remove('text-bg-dark'); // Remove a classe escura para o azul do 'active' destacar perfeitamente
+            });
+        });
+    </script>
 </body>
 </html>
