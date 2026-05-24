@@ -1,64 +1,62 @@
 const http = require('http');
 const fs = require('fs');
 
+// Importa a função do módulo separado que acabamos de criar
+const { createLink } = require('./util');
+
 require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
 const diretorioBase = process.argv[2];
 
 if (!diretorioBase) {
     console.error("Erro: Você precisa informar um diretório como parâmetro.");
-    console.error("Uso correto: node node1.js <caminho_do_diretorio>");
     process.exit(1);
 }
 
 const server = http.createServer((req, res) => {
-    fs.readdir(diretorioBase, (err, arquivos) => {
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
-        if (err) {
-            res.end(`
-                <h2>Erro ao ler o diretório!</h2>
-                <p>Caminho: <strong>${diretorioBase}</strong></p>
-                <p style="color: red;">${err.message}</p>
-            `);
-            return;
-        }
+    // Rota Principal: Exibe apenas os links quando o usuário acessa a raiz "/"
+    if (req.url === '/') {
+        fs.readdir(diretorioBase, (err, arquivos) => {
+            if (err) {
+                res.end(`Erro ao ler o diretório!`);
+                return;
+            }
 
-        let html = `
-            <!DOCTYPE html>
-            <html lang="pt-BR">
-            <head>
-                <meta charset="UTF-8">
-                <title>Listagem de Diretório</title>
-                <style>
-                    body { font-family: Arial, sans-serif; padding: 20px; }
-                    ul { padding-left: 20px; }
-                    li { padding: 5px 0; border-bottom: 1px solid #ccc; }
-                </style>
-            </head>
-            <body>
-                <h2>Conteúdo do diretório: <code>${diretorioBase}</code></h2>
-                <ul>
-        `;
+            let html = '';
+            // Usa a função do util.js para gerar os links sem as tags head/body
+            arquivos.forEach(item => {
+                html += createLink(item);
+            });
 
-        arquivos.forEach(item => {
-            html += `<li>${item}</li>`;
+            res.end(html);
         });
+    } 
+    // Rota de Leitura: Exibe o conteúdo do arquivo e o link Voltar
+    else {
+        // Pega o nome do arquivo da URL (removendo a primeira barra "/")
+        const nomeArquivo = decodeURI(req.url.substring(1));
+        const caminhoCompleto = `${diretorioBase}/${nomeArquivo}`;
 
-        html += `
-                </ul>
-            </body>
-            </html>
-        `;
+        // Lê o conteúdo do arquivo
+        fs.readFile(caminhoCompleto, 'utf8', (err, conteudo) => {
+            if (err) {
+                res.end(`<a href="/">Voltar</a><br><br>Não foi possível ler o arquivo.`);
+                return;
+            }
 
-        res.end(html);
-    });
+            // Exibe o link voltar e o conteúdo do arquivo
+            res.end(`
+                <a href="/">Voltar</a><br>
+                ${conteudo}
+            `);
+        });
+    }
 });
 
 const PORT = process.env.PORT || 3333;
 
 server.listen(PORT, () => {
-    console.log(`A API está rodando a todo vapor!`);
-    console.log(`Acesse: http://localhost:${PORT}`);
-    console.log(`Listando os arquivos de: ${diretorioBase}`);
+    console.log(`Servidor rodando na porta ${PORT}...`);
 });
