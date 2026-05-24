@@ -1,0 +1,17 @@
+{
+  "name": "node3",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "node3.js",
+  "scripts": {
+    "start": "NODE_ENV=development nodemon node3.js",
+    "start:prod": "NODE_ENV=production node node3.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
