@@ -1,25 +1,22 @@
 const http = require('http');
 const fs = require('fs');
 
+// Configura o dotenv para carregar as variáveis do arquivo .env para o process.env
+require('dotenv').config();
+
 // Captura o diretório passado como parâmetro no terminal
 const diretorioBase = process.argv[2];
 
-// Validação de segurança: verifica se o usuário passou o parâmetro
 if (!diretorioBase) {
     console.error("Erro: Você precisa informar um diretório como parâmetro.");
-    console.error("Uso correto: node exercicio1.js <caminho_do_diretorio>");
+    console.error("Uso correto: node node1.js <caminho_do_diretorio>");
     process.exit(1);
 }
 
-// Cria o servidor Web
 const server = http.createServer((req, res) => {
-    
-    // Lê o conteúdo do diretório informado
     fs.readdir(diretorioBase, (err, arquivos) => {
-        // Configura o cabeçalho para retornar HTML e aceitar acentos (utf-8)
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
-        // Se der erro (ex: pasta não existe), retorna a mensagem na tela
         if (err) {
             res.end(`
                 <h2>Erro ao ler o diretório!</h2>
@@ -29,7 +26,6 @@ const server = http.createServer((req, res) => {
             return;
         }
 
-        // Monta a estrutura HTML inicial da resposta
         let html = `
             <!DOCTYPE html>
             <html lang="pt-BR">
@@ -47,12 +43,10 @@ const server = http.createServer((req, res) => {
                 <ul>
         `;
 
-        // Faz um loop no array de arquivos/pastas e adiciona uma tag <li> para cada um
         arquivos.forEach(item => {
             html += `<li>${item}</li>`;
         });
 
-        // Fecha as tags HTML e encerra a resposta
         html += `
                 </ul>
             </body>
@@ -63,8 +57,9 @@ const server = http.createServer((req, res) => {
     });
 });
 
-// Define a porta e inicia o servidor
-const PORT = 3000;
+// Puxa a porta definida no arquivo .env. Se não encontrar o arquivo, usa a 3333 como reserva.
+const PORT = process.env.PORT || 3333;
+
 server.listen(PORT, () => {
     console.log(`A API está rodando a todo vapor!`);
     console.log(`Acesse: http://localhost:${PORT}`);
