@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "node1.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+ "scripts": {
+    "start": "nodemon node1.js",
+    "start:prod": "node node1.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
