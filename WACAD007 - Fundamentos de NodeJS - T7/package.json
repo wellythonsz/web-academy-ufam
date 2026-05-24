@@ -4,8 +4,8 @@
   "description": "",
   "main": "node1.js",
  "scripts": {
-    "start": "nodemon node1.js",
-    "start:prod": "node node1.js"
+    "start": "NODE_ENV=development nodemon node1.js",
+    "start:prod": "NODE_ENV=production node node1.js"
   },
   "keywords": [],
   "author": "",

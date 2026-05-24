@@ -1,10 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 
-// Configura o dotenv para carregar as variáveis do arquivo .env para o process.env
-require('dotenv').config();
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 
-// Captura o diretório passado como parâmetro no terminal
 const diretorioBase = process.argv[2];
 
 if (!diretorioBase) {
@@ -57,7 +55,6 @@ const server = http.createServer((req, res) => {
     });
 });
 
-// Puxa a porta definida no arquivo .env. Se não encontrar o arquivo, usa a 3333 como reserva.
 const PORT = process.env.PORT || 3333;
 
 server.listen(PORT, () => {
