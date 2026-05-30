@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce - Lab 03</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8fafc; padding: 30px; display: flex; gap: 30px; justify-content: center; }
+        h2 { color: #0f172a; margin-top: 0; }
+        .painel { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 400px; }
+        
+        /* Display Fixo de Estatísticas */
+        .display-stats { background: #1e293b; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+        .display-stats h3 { margin: 0; font-size: 16px; color: #94a3b8; }
+        .display-stats p { margin: 5px 0 0 0; font-size: 28px; font-weight: bold; color: #22d3ee; }
+        
+        /* Formulários */
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #1d4ed8; }
+        
+        /* Lista do Carrinho */
+        .item-carrinho { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f1f5f9; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #2563eb; }
+        .item-carrinho .info strong { display: block; color: #0f172a; }
+        .item-carrinho .info small { color: #64748b; }
+        .btn-apagar { width: auto; background-color: #ef4444; padding: 8px 12px; font-size: 14px; margin: 0; }
+        .btn-apagar:hover { background-color: #dc2626; }
+    </style>
+</head>
+<body>
+
+    <div class="painel">
+        <h2>Adicionar Produto</h2>
+        <form id="formProduto">
+            <select id="tipoProduto">
+                <option value="TV">📺 Smart TV</option>
+                <option value="Celular">📱 Smartphone</option>
+                <option value="Bicicleta">🚲 Bicicleta</option>
+            </select>
+
+            <input type="text" id="modelo" placeholder="Modelo do Produto" required>
+            <input type="text" id="fabricante" placeholder="Fabricante" required>
+            <input type="number" id="valor" placeholder="Valor (R$)" step="0.01" required>
+
+            <div id="camposDinamicos"></div>
+
+            <button type="submit">Adicionar ao Carrinho</button>
+        </form>
+    </div>
+
+    <div class="painel" style="width: 500px;">
+        <div class="display-stats">
+            <h3>Total do Carrinho (<span id="displayQtd">0</span> itens)</h3>
+            <p id="displayValor">R$ 0.00</p>
+        </div>
+        
+        <div id="listaCarrinho">
+            <p style="text-align: center; color: #94a3b8; margin-top: 50px;">Seu carrinho está vazio.</p>
+        </div>
+    </div>
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
