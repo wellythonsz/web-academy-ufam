@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List - Web Academy</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; padding: 50px; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        .hidden { display: none; }
+        input, button { width: 100%; padding: 10px; margin: 5px 0 15px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { background-color: #0056b3; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #004494; }
+        .lembrete { background: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 10px; border-left: 5px solid #0056b3; }
+        .lembrete strong { font-size: 1.1em; }
+        .lembrete small { color: #666; display: block; margin-bottom: 10px;}
+        .btn-apagar { background-color: #dc3545; margin: 0; width: auto; padding: 5px 10px; font-size: 0.9em;}
+        .btn-apagar:hover { background-color: #c82333; }
+        #login-msg { color: #dc3545; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="login-section">
+            <h2 style="text-align: center;">🔐 Acesso Restrito</h2>
+            <label>Usuário</label>
+            <input type="text" id="user" placeholder="Digite 'admin'">
+            <label>Senha</label>
+            <input type="password" id="pass" placeholder="Digite 'wacad123'">
+            <button id="btnLogin">Entrar</button>
+            <p id="login-msg"></p>
+        </div>
+
+        <div id="app-section" class="hidden">
+            <h2>📌 Meus Lembretes</h2>
+            
+            <input type="text" id="titulo" placeholder="Título do Lembrete (Obrigatório)">
+            <input type="date" id="dataLimite">
+            <input type="text" id="descricao" placeholder="Descrição (Opcional)">
+            
+            <button id="btnAdicionar">➕ Adicionar Lembrete</button>
+            
+            <hr>
+            <div id="lista-lembretes">
+                </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
