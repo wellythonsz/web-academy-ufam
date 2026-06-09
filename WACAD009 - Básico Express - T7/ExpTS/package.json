@@ -1,0 +1,24 @@
+{
+  "name": "express-hello-world",
+  "version": "1.0.0",
+  "description": "Hello World com Express",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "tsc",
+    "start:prod": "node build/index.js"
+  },
+  "author": "Wellython Salmo",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.2",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
