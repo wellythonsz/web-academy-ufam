@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import validateEnv from './utils/validateEnv';
-import logger from './middlewares/logger'; // 1. Faltava importar o middleware!
+import logger from './middlewares/logger';
+import router from './router';
 
 dotenv.config();
 validateEnv();
@@ -9,18 +10,11 @@ validateEnv();
 const app = express();
 const PORT = process.env.PORT || 3333;
 
-// 2. Faltava acionar o middleware ANTES das rotas!
 app.use(logger('completo'));
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world!');
-});
+// A linha mágica que injeta as rotas
+app.use(router);
 
 app.listen(PORT, () => {
   console.log(`Express app iniciada na porta ${PORT}.`);
-});
-
-app.get('/', (req: Request, res: Response) => {
-  console.log("👉 CHEGOU NA ROTA PRINCIPAL!");
-  res.send('Hello world!');
 });
