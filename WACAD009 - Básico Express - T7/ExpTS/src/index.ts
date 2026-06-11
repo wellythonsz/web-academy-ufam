@@ -13,7 +13,17 @@ const app = express();
 const PORT = process.env.PORT || 3333;
 
 // --- CONFIGURAÇÃO DO HANDLEBARS ---
-app.engine('handlebars', engine());
+app.engine('handlebars', engine({
+  helpers: {
+    // Helper de bloco que recebe o array e filtra por Node.js
+    filtraPorNode: (tecnologias: any[], options: any) => {
+      return tecnologias
+        .filter((tech) => tech.poweredByNodejs) // Filtra apenas os que são true
+        .map((tech) => options.fn(tech))        // Injeta os dados no HTML da página
+        .join('');
+    }
+  }
+}));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(process.cwd(), 'src', 'views'));
 console.log("🔥 O MOTOR DO HANDLEBARS FOI CONFIGURADO!"); // <-- Adicione esta linha
