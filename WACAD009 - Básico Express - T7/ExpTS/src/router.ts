@@ -20,4 +20,28 @@ router.get('/lorem/:numero', (req: Request, res: Response) => {
   res.send(`<p>${textoGerado.split('\n').join('</p><p>')}</p>`);
 });
 
+
+router.get('/hb1', (req: Request, res: Response) => {
+  res.render('hb1', { 
+    mensagem: 'Olá, Handlebars!' 
+  });
+});
+
+router.get('/hb2', (req: Request, res: Response) => {
+  res.render('hb2', { 
+    nome: 'React', 
+    isPoderoso: false 
+  });
+});
+
+router.get('/hb3', (req: Request, res: Response) => {
+  const profs = [
+    { nome: 'David', sala: '111' },
+    { nome: 'Bruno', sala: '222' },
+    { nome: 'Tayana', sala: '333' }
+  ];
+  
+  res.render('hb3', { profs });
+});
+
 export default router;
