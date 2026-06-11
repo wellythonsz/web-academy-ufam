@@ -3,8 +3,8 @@ import mainController from './controllers/main'; // Importa o controlador criado
 
 const router = Router();
 
-// Mapeamento das rotas utilizando as funções do controlador
 router.get('/', mainController.index);
+router.get('/sobre', mainController.sobre); // <-- Adicione esta linha!
 router.get('/lorem/:numero', mainController.loremIpsum);
 router.get('/hb1', mainController.hb1);
 router.get('/hb2', mainController.hb2);

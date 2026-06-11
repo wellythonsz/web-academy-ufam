@@ -62,5 +62,12 @@ const hb4 = (req: Request, res: Response) => {
   res.render('hb4', { technologies });
 };
 
-// Exporta todos os métodos do controlador principal
-export default { index, loremIpsum, hb1, hb2, hb3, hb4 };
+// ... código anterior das outras funções (hb1, hb2, etc)
+
+// Lógica da rota '/sobre'
+const sobre = (req: Request, res: Response) => {
+  res.render('sobre');
+};
+
+// Exporte a função 'sobre' junto com as outras!
+export default { index, loremIpsum, hb1, hb2, hb3, hb4, sobre };
