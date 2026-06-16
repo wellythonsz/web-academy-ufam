@@ -31,6 +31,8 @@ app.use(sass({
 app.use('/css', express.static(path.join(process.cwd(), 'public', 'css')));
 // ---------------------------------------------------
 
+app.use(express.urlencoded({ extended: false }));
+
 app.use(router); // O router continua aqui embaixo
 
 app.listen(PORT, () => {
