@@ -1,0 +1,71 @@
+Parte 1:
+- nota: 10.0
+- feedbacks:
+  - A aplicação Hello World foi implementada usando Express e TypeScript.
+  - O projeto adiciona dotenv e nodemon e possui os scripts start e start:prod no package.json.
+
+Parte 10:
+- nota: 10.0
+- feedbacks:
+  - O SASS foi adicionado e configurado no projeto.
+  - O projeto possui estrutura, arquivo ou script que permite compilar ou usar os estilos SASS na aplicação.
+
+Parte 11:
+- nota: 10.0
+- feedbacks:
+  - O Bootstrap foi adicionado ao layout do Handlebars.
+  - Um Navbar Bootstrap foi inserido no layout do Handlebars.
+
+Parte 12:
+- nota: 10.0
+- feedbacks:
+  - Foi criado um controlador product.ts, ou nome similar, no mesmo diretório do controlador main.ts ou em estrutura equivalente.
+  - O controlador de produtos implementa as operações de CRUD.
+
+Parte 2:
+- nota: 10.0
+- feedbacks:
+  - Foi criado um arquivo em src/utils, ou pasta similar, usando envalid para validar ou recuperar variáveis de ambiente.
+  - O arquivo de validação de variáveis de ambiente é utilizado no src/index.ts.
+
+Parte 3:
+- nota: 10.0
+- feedbacks:
+  - O ESLint foi adicionado e configurado no projeto.
+  - O Prettier foi adicionado e configurado no projeto.
+
+Parte 4:
+- nota: 7.0
+- feedbacks:
+  - O middleware de log foi implementado em src/middlewares, ou pasta similar, e salva dados de acesso em arquivo.
+  - O middleware não aceita corretamente os formatos simples e completo, não usa a pasta de logs informada no .env ou os logs não são ignorados no .gitignore.
+
+Parte 5:
+- nota: 7.0
+- feedbacks:
+  - A rota /lorem foi criada e recebe como parâmetro o número de parágrafos desejados.
+  - A página da rota /lorem exibe a quantidade de parágrafos Lorem Ipsum indicada no parâmetro.
+
+Parte 6:
+- nota: 10.0
+- feedbacks:
+  - A rota /hb1 usa uma view Handlebars para imprimir uma variável enviada pelo controlador.
+  - As rotas /hb2 e /hb3 usam corretamente os recursos #if e #each do Handlebars.
+
+Parte 7:
+- nota: 5.0
+- feedbacks:
+  - Um helper para o Handlebars não foi criado corretamente.
+  - O helper criado não é utilizado corretamente na view da rota /hb4.
+
+Parte 8:
+- nota: 10.0
+- feedbacks:
+  - Foi criada uma pasta de controladores, como src/controllers, src/controller ou nome similar.
+  - Foi criado um controlador main, ou nome similar, contendo os request handlers das rotas desenvolvidas anteriormente.
+
+Parte 9:
+- nota: 10.0
+- feedbacks:
+  - Foi criado um template ou layout Handlebars contendo a estrutura HTML comum das páginas.
+  - As views não possuem as tags html, head e body e contêm apenas o conteúdo específico da página.
