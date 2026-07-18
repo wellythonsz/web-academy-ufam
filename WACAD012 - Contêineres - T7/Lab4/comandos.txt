@@ -1,0 +1,17 @@
+# 1. Criar a rede para que o frontend e o backend possam se enxergar pelo nome
+docker network create rede_exercicio
+
+# 2. Fazer o build da imagem do backend
+docker build -t imagem-backend ./backend
+
+# 3. Fazer o build da imagem do frontend
+docker build -t imagem-frontend ./frontend
+
+# 4. Rodar o container do backend (dando o nome 'backend_container' usado no código JS)
+docker run -d --name backend_container --network rede_exercicio -p 4000:4000 imagem-backend
+
+# 5. Rodar o container do frontend
+docker run -d --name frontend_container --network rede_exercicio -p 3000:3000 imagem-frontend
+
+# 6. Para visualizar se a mensagem chegou no backend, inspecionar os logs do container:
+docker logs -f backend_container
