@@ -1,0 +1,56 @@
+services:
+  # 1. Banco de Dados MySQL
+  # 1. Banco de Dados MySQL
+  db:
+    image: mysql:8.0
+    container_name: final_mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha_root_db
+      MYSQL_DATABASE: webacademy_livros
+    volumes:
+      - vol_mysql:/var/lib/mysql
+      - ./bd:/docker-entrypoint-initdb.d
+
+  # 2. PHPMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: final_phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
+
+  # 3. Backend (Node.js)
+  backend:
+    build: ./backend
+    container_name: final_backend
+    ports:
+      - "4444:4444"
+    volumes:
+      - vol_backend_logs:/app/log 
+    environment:
+      - ESCREVER_LOG_ARQUIVO=true
+      - PORTA=4444
+      - DATABASE_URL=mysql://root:senha_root_db@db:3306/webacademy_livros
+    depends_on:
+      - db
+
+  # 4. Frontend (React + Nginx)
+  frontend:
+    build: ./frontend
+    container_name: final_frontend
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
+
+# Declaração dos volumes gerenciados pelo Docker para garantir a persistência
+volumes:
+  vol_mysql:
+  vol_backend_logs:
