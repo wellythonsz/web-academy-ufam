@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model UserType {
+  id       String @id @default(uuid())
+  nome     String @unique // ex: 'Admin', 'Cliente'
+  usuarios User[]
+
+  @@map("user_types")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  nome          String
+  email         String   @unique
+  senha         String
+  tipoUsuarioId String
+  tipoUsuario   UserType @relation(fields: [tipoUsuarioId], references: [id])
+
+  @@map("users")
+}

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    /* Opções Básicas */
+    "target": "es2022",
+    "module": "nodenext",
+    "rootDir": "./src",
+    "outDir": "./build",
+    "types": ["node"],
+
+    /* Resolução de Módulos (A Mágica dos Imports) */
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Checagem Estrita */
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
