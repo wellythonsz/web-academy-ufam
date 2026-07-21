@@ -21,6 +21,37 @@ model User {
   senha         String
   tipoUsuarioId String
   tipoUsuario   UserType @relation(fields: [tipoUsuarioId], references: [id])
+  compras       Compra[] 
 
   @@map("users")
+}
+
+model Produto {
+  id             String       @id @default(uuid())
+  nome           String
+  preco          Float
+  itensComprados CompraItem[] 
+
+  @@map("produtos")
+}
+
+model Compra {
+  id        String       @id @default(uuid())
+  usuarioId String
+  usuario   User         @relation(fields: [usuarioId], references: [id])
+  itens     CompraItem[]
+  createdAt DateTime     @default(now())
+
+  @@map("compras")
+}
+
+model CompraItem {
+  id         String  @id @default(uuid())
+  compraId   String
+  compra     Compra  @relation(fields: [compraId], references: [id])
+  produtoId  String
+  produto    Produto @relation(fields: [produtoId], references: [id])
+  quantidade Int
+
+  @@map("compra_items")
 }
