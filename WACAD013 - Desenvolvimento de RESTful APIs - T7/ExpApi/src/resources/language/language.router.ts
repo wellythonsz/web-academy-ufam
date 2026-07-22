@@ -7,3 +7,15 @@ const router = Router();
 router.post('/change', languageController.changeLanguage);
 
 export default router;
+
+/**
+ * @openapi
+ * /language/change:
+ *   get:
+ *     summary: Altera o idioma da aplicação via cookie.
+ *     tags: [Language]
+ *     responses:
+ *       200:
+ *         description: Idioma alterado com sucesso.
+ */
+// Exemplo: router.get('/change', languageController.changeLanguage);

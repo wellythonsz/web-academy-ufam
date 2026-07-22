@@ -1,6 +1,8 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import session from 'express-session'; // <-- 1. Importação do express-session
+import swaggerUi from 'swagger-ui-express'; // <-- Nova importação do Swagger
+import swaggerSpec from './swagger.js'; // <-- Nova importação das configurações do Swagger
 import setLangCookie from './middlewares/setLangCookie';
 import languageRouter from './resources/language/language.router';
 import usuarioRouter from './resources/usuario/usuario.router'; 
@@ -24,7 +26,10 @@ app.use(session({
 // 3. Aplica o middleware que define a linguagem padrão (pt-BR)
 app.use(setLangCookie);
 
-// 4. Registra as rotas para o Insomnia/Bruno acessar
+// 4. Rota da Documentação do Swagger (Lab 5)
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// 5. Registra as rotas para o Insomnia/Bruno acessar
 app.use('/language', languageRouter);
 app.use('/usuario', usuarioRouter); 
 app.use('/compra', compraRouter); // <-- 3. Rota de compra plugada aqui!
@@ -33,4 +38,5 @@ app.use('/compra', compraRouter); // <-- 3. Rota de compra plugada aqui!
 
 app.listen(4444, () => {
   console.log('Servidor rodando na porta 4444');
+  console.log('Documentação Swagger disponível em: http://localhost:4444/api');
 });
