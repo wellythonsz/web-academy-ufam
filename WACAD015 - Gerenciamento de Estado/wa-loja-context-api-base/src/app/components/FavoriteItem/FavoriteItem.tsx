@@ -1,8 +1,7 @@
-import { useContext } from 'react'
 import { calculateDiscountedPrice } from '@/app/helpers'
 import { Product } from '@/app/types/product'
 import Image from 'next/image'
-import { FavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
+import { useFavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
 
 interface FavoriteItemProps {
   favoriteItem: Product
@@ -11,18 +10,13 @@ interface FavoriteItemProps {
 export default function FavoriteItem({
   favoriteItem
 }: FavoriteItemProps) {
-  const { setFavorites } = useContext(FavoritesContext)
+  // 1. Consumindo a função de remoção diretamente do custom hook
+  const { removeFavorite } = useFavoritesContext()
 
-  // 1. Defesa principal: Se o item chegou vazio, não tenta renderizar
+  // Defesa principal: Se o item chegou vazio, não tenta renderizar
   if (!favoriteItem) return null;
 
-  const removeFavorite = (id: string) => {
-    setFavorites((currentFavorites) =>
-      currentFavorites.filter((item) => item?.id !== id)
-    )
-  }
-
-  // 2. Optional Chaining (?.) para garantir que se a foto não existir, o app não quebre
+  // Optional Chaining (?.) para garantir que se a foto não existir, o app não quebre
   const imageSrc = favoriteItem.fotos?.[0]?.src || ''
   const imageAlt = favoriteItem.fotos?.[0]?.titulo || 'Produto sem imagem'
 

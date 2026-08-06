@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAuthContext } from '@/app/context/Auth/AuthProvider' // Importação do custom hook
 
 type LoginFormInputs = {
   email: string
@@ -16,10 +16,12 @@ export default function LoginForm() {
     formState: { errors }
   } = useForm<LoginFormInputs>()
 
-  const router = useRouter()
+  // Consumindo a função de login do nosso contexto
+  const { login } = useAuthContext()
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = () => {
-    router.push('/')
+  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+    // Passamos o email do formulário para a função de login centralizada
+    login(data.email)
   }
 
   return (

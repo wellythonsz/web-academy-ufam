@@ -1,18 +1,9 @@
-import { useContext } from 'react'
-import { calculateDiscountedPrice } from '@/app/helpers'
-import { FavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
 import FavoriteItem from '../FavoriteItem/FavoriteItem'
+import { useFavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
 
 export default function FavoritesList() {
-  const { favorites } = useContext(FavoritesContext)
-
-  // Verificação de segurança: ignorar itens vazios no cálculo
-  const totalFavoriteValue = favorites.reduce((acc, product) => {
-    if (!product) return acc;
-    return (
-      acc + calculateDiscountedPrice(Number(product.preco), product.desconto)
-    )
-  }, 0)
+  // Consumindo o estado e o valor total calculados no Provider através do custom hook
+  const { favorites, totalFavoritesValue } = useFavoritesContext()
 
   return (
     <div className='card mb-4'>
@@ -51,7 +42,7 @@ export default function FavoritesList() {
         </small>
 
         <small className='text-muted'>
-          Valor total: R$ {totalFavoriteValue}
+          Valor total: R$ {totalFavoritesValue.toFixed(2)}
         </small>
       </div>
     </div>

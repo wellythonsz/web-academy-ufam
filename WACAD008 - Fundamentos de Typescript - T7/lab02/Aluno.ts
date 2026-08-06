@@ -6,6 +6,6 @@ export class Aluno {
         public idade: number,
         public altura: number,
         public peso: number,
-        public genero: string // Novo atributo para o Desafio 2
+        public genero: string
     ) {}
 }
