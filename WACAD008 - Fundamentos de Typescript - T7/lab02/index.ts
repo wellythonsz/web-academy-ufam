@@ -1,42 +1,66 @@
 // index.ts
-import { Aluno } from './Aluno';
-import { Turma } from './Turma';
+import { Aluno } from './Aluno.js';
+import { Turma } from './Turma.js';
 
-const turmaCrossfit = new Turma(1, "Educação Física - API Mode");
+const turmaCrossfit = new Turma(1, "Educação Física - Web");
 
-// --- DESAFIO 1: FUNÇÃO PARA BUSCAR ALUNOS NA API ---
-async function popularTurmaComAPI(quantidade: number) {
-    console.log(`\n⏳ Buscando ${quantidade} alunos na API RandomUser...\n`);
-    
-    try {
-        // Faz a requisição para a API pedindo o número exato de resultados
-        const response = await fetch(`https://randomuser.me/api/?results=${quantidade}`);
-        const data = await response.json();
+// ==========================================
+// FUNÇÕES GLOBAIS PARA O DOM (HTML)
+// ==========================================
+(window as any).remover = (id: number) => {
+    turmaCrossfit.removerAluno(id);
+};
 
-        // Itera sobre o array de pessoas que a API retornou
-        data.results.forEach((user: any, index: number) => {
-            // Gerando altura (entre 1.50 e 1.95) e peso (entre 50 e 100) aleatoriamente, já que a API não fornece
-            const alturaRandom = (Math.random() * (1.95 - 1.50) + 1.50);
-            const pesoRandom = (Math.random() * (100 - 50) + 50);
+(window as any).editar = (id: number) => {
+    turmaCrossfit.iniciarEdicao(id);
+};
 
-            // Instanciando o nosso objeto Aluno com os dados reais misturados com os aleatórios
-            const novoAluno = new Aluno(
-                index + 1, 
-                `${user.name.first} ${user.name.last}`, 
-                user.dob.age, 
-                alturaRandom, 
-                pesoRandom, 
-                user.gender
-            );
+(window as any).cancelar = () => {
+    turmaCrossfit.cancelarEdicao();
+};
 
-            // Adiciona na turma (isso vai acionar nosso display automático várias vezes)
-            turmaCrossfit.adicionarAluno(novoAluno);
-        });
+(window as any).salvar = (id: number) => {
+    // Captura os novos valores de dentro dos inputs dinâmicos gerados no HTML
+    const nome = (document.getElementById(`editNome_${id}`) as HTMLInputElement).value;
+    const idade = parseInt((document.getElementById(`editIdade_${id}`) as HTMLInputElement).value);
+    const altura = parseFloat((document.getElementById(`editAltura_${id}`) as HTMLInputElement).value);
+    const peso = parseFloat((document.getElementById(`editPeso_${id}`) as HTMLInputElement).value);
+    const genero = (document.getElementById(`editGenero_${id}`) as HTMLSelectElement).value;
+
+    turmaCrossfit.salvarEdicao(id, nome, idade, altura, peso, genero);
+};
+
+// ==========================================
+// INTEGRAÇÃO COM A API RANDOMUSER
+// ==========================================
+const btnGerar = document.getElementById('btnGerar');
+if (btnGerar) {
+    btnGerar.addEventListener('click', async () => {
+        btnGerar.innerText = "⏳ Buscando alunos...";
         
-    } catch (error) {
-        console.error("Erro ao buscar dados na API:", error);
-    }
-}
+        try {
+            const response = await fetch('https://randomuser.me/api/?results=3');
+            const data = await response.json();
 
-// Vamos pedir 3 alunos gerados automaticamente para a API!
-popularTurmaComAPI(3);
+            data.results.forEach((user: any) => {
+                const alturaRandom = (Math.random() * (1.95 - 1.50) + 1.50);
+                const pesoRandom = (Math.random() * (100 - 50) + 50);
+                
+                const novoAluno = new Aluno(
+                    Math.floor(Math.random() * 10000), // ID aleatório
+                    `${user.name.first} ${user.name.last}`, 
+                    user.dob.age, 
+                    alturaRandom, 
+                    pesoRandom, 
+                    user.gender === 'male' ? 'Masculino' : 'Feminino'
+                );
+                
+                turmaCrossfit.adicionarAluno(novoAluno);
+            });
+        } catch (error) {
+            console.error("Erro ao buscar dados na API:", error);
+        }
+        
+        btnGerar.innerText = "➕ Adicionar 3 Alunos via API";
+    });
+}

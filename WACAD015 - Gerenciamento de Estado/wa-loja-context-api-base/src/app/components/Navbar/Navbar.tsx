@@ -1,8 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import { useAuthContext } from '@/app/context/Auth/AuthProvider'
 
 export default function Navbar() {
+  // Consumindo o estado de email e a função logout do contexto
+  const { userEmail, logout } = useAuthContext()
+
   return (
     <nav className='navbar navbar-expand-md bg-light border-bottom border-body sticky-top'>
       <div className='container-fluid'>
@@ -34,11 +38,27 @@ export default function Navbar() {
             </li>
           </ul>
 
-          <Link className='nav-link ' href='/login'>
-            <button type='button' className='btn btn-secondary'>
-              Sair
-            </button>
-          </Link>
+          <div className='d-flex align-items-center'>
+            {/* Renderização condicional baseada no status de login */}
+            {userEmail ? (
+              <>
+                <span className='me-3'>{userEmail}</span>
+                <button 
+                  type='button' 
+                  className='btn btn-secondary' 
+                  onClick={logout}
+                >
+                  Sair
+                </button>
+              </>
+            ) : (
+              <Link className='nav-link ' href='/login'>
+                <button type='button' className='btn btn-secondary'>
+                  Entrar
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>

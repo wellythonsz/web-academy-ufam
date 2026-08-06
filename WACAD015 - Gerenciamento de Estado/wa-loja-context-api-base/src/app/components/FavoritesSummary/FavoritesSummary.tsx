@@ -1,11 +1,10 @@
-import { useContext } from 'react'
 import { Product } from '@/app/types/product'
 import ProductCard from '../ProductCard/ProductCard'
-import { FavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
+import { useFavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
 
 export default function FavoritesSummary() {
-  // Consumindo os dados de favoritos diretamente do contexto
-  const { favorites } = useContext(FavoritesContext)
+  // Consumindo os dados de favoritos diretamente do custom hook
+  const { favorites } = useFavoritesContext()
 
   const recentFavorites = favorites.slice(-3).reverse()
 

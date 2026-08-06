@@ -1,8 +1,7 @@
-import { useContext } from 'react'
 import { calculateDiscountedPrice } from '@/app/helpers'
 import { Product } from '@/app/types/product'
 import Image from 'next/image'
-import { FavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
+import { useFavoritesContext } from '@/app/context/Favorites/FavoritesProvider'
 
 interface ProductCardProps {
   product: Product
@@ -15,19 +14,16 @@ export default function ProductCard({
   showImage = true,
   showButton = true
 }: ProductCardProps) {
-  // Consumindo os dados diretamente do contexto
-  const { favorites, setFavorites } = useContext(FavoritesContext)
+  // Consumindo as funções diretamente do custom hook
+  const { addFavorite, checkIsFavorite } = useFavoritesContext()
 
-  const addToFavorites = (productToAdd: Product) => {
-    setFavorites((currentFavorites) => [...currentFavorites, productToAdd])
-  }
-
-  const isFavorite = favorites.some((item) => item.id === product.id)
+  // Verifica se o produto atual é favorito usando a função centralizada do contexto
+  const isFavorite = checkIsFavorite(product.id)
 
   return (
     <div className='col'>
       <div className='card shadow-sm h-100'>
-        {showImage ? (
+        {showImage && product.fotos && product.fotos.length > 0 ? (
           <Image
             src={product.fotos[0].src}
             className='card-img-top'
@@ -56,7 +52,8 @@ export default function ProductCard({
                   : 'btn btn-secondary d-block w-100'
               }
               type='button'
-              onClick={() => addToFavorites(product)}
+              // Chama diretamente a função de adicionar do contexto
+              onClick={() => addFavorite(product)}
               disabled={isFavorite}
             >
               {isFavorite ? 'Favoritado' : 'Favoritar'}

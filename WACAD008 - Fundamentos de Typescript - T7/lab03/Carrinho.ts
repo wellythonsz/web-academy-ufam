@@ -8,7 +8,6 @@ export class Carrinho<T extends IProduto> {
         this.itens.push(produto);
     }
 
-    // Desafio Opcional: Remover item do carrinho
     remover(index: number): void {
         if (index >= 0 && index < this.itens.length) {
             this.itens.splice(index, 1);
