@@ -1,0 +1,13 @@
+name: WACAD017 - LP01 - Hello World Programado
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Exibir Hello World
+        run: echo "Hello World - execução programada!"
