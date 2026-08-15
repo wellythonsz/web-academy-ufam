@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categoria {
+  id_categoria Int            @id @default(autoincrement())
+  nome         String
+  Subcategoria Subcategoria[]
+}
+
+model Cliente {
+  id_cliente      Int        @id @default(autoincrement())
+  nome_completo   String
+  cpf             String     @unique
+  celular         String?
+  email           String     @unique
+  data_nascimento DateTime
+  Compra          Compra[]
+  Endereco        Endereco[]
+}
+
+model Compra {
+  id_compra         Int           @id @default(autoincrement())
+  data_hora         DateTime      @default(now())
+  desconto_aplicado Float?
+  forma_pagamento   String
+  total_compra      Float
+  clienteId         Int
+  enderecoId        Int
+  Cliente           Cliente       @relation(fields: [clienteId], references: [id_cliente])
+  Endereco          Endereco      @relation(fields: [enderecoId], references: [id_endereco])
+  Item_Compra       Item_Compra[]
+
+  @@index([clienteId], map: "Compra_clienteId_fkey")
+  @@index([enderecoId], map: "Compra_enderecoId_fkey")
+}
+
+model Endereco {
+  id_endereco Int      @id @default(autoincrement())
+  logradouro  String
+  numero      String
+  complemento String?
+  bairro      String
+  cidade      String
+  estado      String
+  cep         String
+  clienteId   Int
+  Compra      Compra[]
+  Cliente     Cliente  @relation(fields: [clienteId], references: [id_cliente])
+
+  @@index([clienteId], map: "Endereco_clienteId_fkey")
+}
+
+model Item_Compra {
+  compraId       Int
+  produtoId      Int
+  quantidade     Int
+  preco_unitario Float
+  Compra         Compra  @relation(fields: [compraId], references: [id_compra])
+  Produto        Produto @relation(fields: [produtoId], references: [id_produto])
+
+  @@id([compraId, produtoId])
+  @@index([produtoId], map: "Item_Compra_produtoId_fkey")
+}
+
+model Numero_Serie {
+  id_numero_serie Int     @id @default(autoincrement())
+  numero_serie    String  @unique
+  produtoId       Int
+  Produto         Produto @relation(fields: [produtoId], references: [id_produto])
+
+  @@index([produtoId], map: "Numero_Serie_produtoId_fkey")
+}
+
+model Produto {
+  id_produto            Int            @id @default(autoincrement())
+  modelo                String
+  fabricante            String
+  preco_base            Float
+  quantidade_disponivel Int
+  subcategoriaId        Int
+  Item_Compra           Item_Compra[]
+  Numero_Serie          Numero_Serie[]
+  Subcategoria          Subcategoria   @relation(fields: [subcategoriaId], references: [id_subcategoria])
+
+  @@index([subcategoriaId], map: "Produto_subcategoriaId_fkey")
+}
+
+model Subcategoria {
+  id_subcategoria Int       @id @default(autoincrement())
+  nome            String
+  categoriaId     Int
+  Produto         Produto[]
+  Categoria       Categoria @relation(fields: [categoriaId], references: [id_categoria])
+
+  @@index([categoriaId], map: "Subcategoria_categoriaId_fkey")
+}
