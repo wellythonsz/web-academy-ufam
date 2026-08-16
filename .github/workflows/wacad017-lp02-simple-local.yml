@@ -9,9 +9,28 @@ on:
       - ".github/workflows/wacad017-lp02-simple-local.yml"
 
 jobs:
-  first-job:
+  build-node:
     runs-on: ubuntu-latest
+    container: node:18
 
     steps:
-      - name: Diga oi
-        run: echo "Hello World!"
+      - name: Verificar versao do Node
+        run: node --version
+
+      - name: Verificar versao do npm
+        run: npm --version
+
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
+        run: npm install
+
+      - name: Instalar Moment
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
+        run: npm install --save moment
+
+      - name: Executar aplicacao
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
+        run: node app.js
