@@ -1,11 +1,13 @@
-cat > README.md << 'EOF'
-# LP01 - Fundamentos de Integração Contínua
+# LP01 - GitHub Actions
 
 Laboratório de Prática 01 da disciplina WACAD017 - Fundamentos de Integração Contínua.
 
-## Atividades
+## Exercícios
 
-1. Workflow Hello World executado manualmente.
-2. Workflow Hello World executado de forma programada.
-3. Workflow básico de compilação executado via push.
-EOF
+1. Workflow Hello Flow com ativação manual usando `workflow_dispatch`.
+2. Workflow Hello Flow com ativação programada usando `schedule`.
+3. Workflow Hello Flow com ativação por evento usando `push`.
+
+O workflow utilizado nos exercícios está localizado em:
+
+`.github/workflows/helloFlow.yml`
