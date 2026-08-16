@@ -24,13 +24,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Instalar dependencias
-        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
-        run: npm install
+        run: |
+          cd "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
+          npm install
 
       - name: Instalar Moment
-        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
-        run: npm install --save moment
+        run: |
+          cd "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
+          npm install --save moment
 
       - name: Executar aplicacao
-        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
-        run: node app.js
+        run: |
+          cd "WACAD017 - Fundamentos de Integração Contínua - T7/LP02"
+          node app.js
