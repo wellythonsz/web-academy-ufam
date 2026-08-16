@@ -1,0 +1,34 @@
+name: Test Pipe
+
+on:
+  push:
+    paths:
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP03/lab03_01/**"
+      - ".github/workflows/wacad017-lp03-test.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    defaults:
+      run:
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP03/lab03_01"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the tests
+        run: npm test -- --coverage
