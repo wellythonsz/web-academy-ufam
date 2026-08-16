@@ -1,0 +1,37 @@
+name: WACAD017 - LP02 - Projeto Simples
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/projeto-simples/**"
+      - ".github/workflows/wacad017-lp02-projeto-simples.yml"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/projeto-simples"
+
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v6
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build do projeto
+        run: npm run build
+
+      - name: Executar aplicacao
+        run: npm start
