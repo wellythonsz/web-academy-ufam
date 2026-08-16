@@ -1,0 +1,17 @@
+name: Simple Local
+
+on:
+  push:
+    paths:
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/app.js"
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/package.json"
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/package-lock.json"
+      - ".github/workflows/wacad017-lp02-simple-local.yml"
+
+jobs:
+  first-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Diga oi
+        run: echo "Hello World!"
