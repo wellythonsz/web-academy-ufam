@@ -1,7 +1,8 @@
 name: Hello Flow
 
 on:
-  push:
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   first-job:
