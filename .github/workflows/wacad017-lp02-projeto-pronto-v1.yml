@@ -1,0 +1,38 @@
+name: WACAD017 - LP02 - Projeto Pronto V1
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/projeto-pronto/**"
+      - ".github/workflows/wacad017-lp02-projeto-pronto-v1.yml"
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP02/projeto-pronto"
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test code
+        run: npm run test
+
+      - name: Build code
+        run: npm run build
+
+      - name: Deploy code
+        run: echo "Deploying..."
