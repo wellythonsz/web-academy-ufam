@@ -32,3 +32,11 @@ jobs:
 
       - name: Run the tests
         run: npm test -- --coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: "WACAD017 - Fundamentos de Integração Contínua - T7/LP03/lab03_01/coverage/lcov.info"
+          disable_search: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
