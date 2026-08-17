@@ -1,0 +1,84 @@
+name: GCP Deploy
+
+on:
+  push:
+    paths:
+      - "WACAD017 - Fundamentos de Integração Contínua - T7/LP04/lab04/**"
+      - ".github/workflows/wacad017-lp04-deploy.yml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP04/lab04"
+        run: npm install
+
+      - name: Lint
+        id: lint-step
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP04/lab04"
+        run: npm run lint
+
+      - name: check-lint
+        if: failure() && steps.lint-step.outcome == 'failure'
+        run: echo "Codigo precisa ser revisto!!"
+
+  build_docker:
+    needs: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: "WACAD017 - Fundamentos de Integração Contínua - T7/LP04/lab04"
+          push: true
+          tags: wellython/webacademy:latest
+
+  deploy:
+    needs: lint
+    name: Setup Gcloud Account
+    runs-on: ubuntu-latest
+    environment: wagcp_deploy
+
+    env:
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/webacademy:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: LoginCCP
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+
+      - name: Build Docker image
+        working-directory: "WACAD017 - Fundamentos de Integração Contínua - T7/LP04/lab04"
+        run: docker build -t $IMAGE_NAME .
+
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME
+
+      - name: Deploy Docker image
+        run: gcloud run deploy wacicd --image $IMAGE_NAME --region us-west1 --memory 128Mi --min-instances 0 --max-instances 1 --platform managed --port 8080 --allow-unauthenticated
